@@ -1,12 +1,55 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:p="http://primefaces.org/ui">
+                                         
+  
     <h:head>
         <title>Facelet Title</title>
     </h:head>
+     <link rel="stylesheet" type="text/css" href="css/newcss.css"/> 
     <h:body>
-        Hello from Facelets
+        <f:view>
+            <h:form id="login_frm">
+                <h2>Login Please:</h2>
+                <table width="250" border="0" cellspacing="0" cellpadding="2">
+                  <tr>
+                      <td colspan="2">
+                            <h:message for="login" styleClass="errorMsg"/>
+                            <h:message for="haslo" styleClass="errorMsg"/>                       
+                        </td>
+                  </tr>            
+                  <tr>
+                    <td><h:outputText value="Username : "/></td>
+                    <td><h:inputText id="login" value="#{login}" required="true" styleClass="input_text"/></td>
+                  </tr>
+                  <tr>
+                    <td><h:outputText value="Password : "/></td>
+                    <td><h:inputSecret id="haslo" value="#{haslo}" required="true" styleClass="input_text"/></td>
+                  </tr>
+                  <tr>
+                      <td colspan="2" align="center">
+                          <h:commandButton action="#{loguj}" value="Login" type="submit"/></td>
+                  </tr>                     
+                </table>          
+            </h:form>
+      
+        <h:form>                    
+    <p:growl id="growl" showDetail="true" sticky="true" />       
+    <p:panel header="Zarejestruj nowe konto jeżeli jeszcze nie posiadasz">  
+        <h:panelGrid columns="2">  
+            <h:outputText value="Login" />   
+            <p:inputText value="#{login}" required="true" label="Name"/>  
+            <h:outputText value="Haslo"/>
+            <p:password value="#{haslo}" />           
+        </h:panelGrid>  
+        <p:commandButton value="Zapisz" actionListener="#{rejestruj}" update="growl"/>  
+    </p:panel>       
+</h:form> 
+            
+        </f:view>
     </h:body>
 </html>
 
