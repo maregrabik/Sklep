@@ -4,51 +4,51 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core" 
       xmlns:p="http://primefaces.org/ui">
-                                         
-  
+
+
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-     <link rel="stylesheet" type="text/css" href="css/newcss.css"/> 
+    <link rel="stylesheet" type="text/css" href="./resources/css/newcss.css"/> 
     <h:body>
         <f:view>
             <h:form id="login_frm">
                 <h2>Login Please:</h2>
                 <table width="250" border="0" cellspacing="0" cellpadding="2">
-                  <tr>
-                      <td colspan="2">
+                    <tr>
+                        <td colspan="2">
                             <h:message for="login" styleClass="errorMsg"/>
                             <h:message for="haslo" styleClass="errorMsg"/>                       
                         </td>
-                  </tr>            
-                  <tr>
-                    <td><h:outputText value="Username : "/></td>
-                    <td><h:inputText id="login" value="#{login}" required="true" styleClass="input_text"/></td>
-                  </tr>
-                  <tr>
-                    <td><h:outputText value="Password : "/></td>
-                    <td><h:inputSecret id="haslo" value="#{haslo}" required="true" styleClass="input_text"/></td>
-                  </tr>
-                  <tr>
-                      <td colspan="2" align="center">
-                          <h:commandButton action="#{loguj}" value="Login" type="submit"/></td>
-                  </tr>                     
+                    </tr>            
+                    <tr>
+                        <td><h:outputText value="Username : "/></td>
+                        <td><h:inputText id="login" value="#{aktualnyUzytkownik.login}" required="true" styleClass="input_text"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="Password : "/></td>
+                        <td><h:inputSecret id="haslo" value="#{aktualnyUzytkownik.haslo}" required="true" styleClass="input_text"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <h:commandButton action="#{aktualnyUzytkownik.loguj()}" value="Login" type="submit"/></td>
+                    </tr>                     
                 </table>          
             </h:form>
-      
-        <h:form>                    
-    <p:growl id="growl" showDetail="true" sticky="true" />       
-    <p:panel header="Zarejestruj nowe konto jeżeli jeszcze nie posiadasz">  
-        <h:panelGrid columns="2">  
-            <h:outputText value="Login" />   
-            <p:inputText value="#{login}" required="true" label="Name"/>  
-            <h:outputText value="Haslo"/>
-            <p:password value="#{haslo}" />           
-        </h:panelGrid>  
-        <p:commandButton value="Zapisz" actionListener="#{rejestruj}" update="growl"/>  
-    </p:panel>       
-</h:form> 
-            
+
+            <h:form>                    
+                <p:growl id="growl" showDetail="true" sticky="true" />       
+                <p:panel header="Zarejestruj nowe konto jeżeli jeszcze nie posiadasz">  
+                    <h:panelGrid columns="2">  
+                        <h:outputText value="Login" />   
+                        <p:inputText value="#{rejestruj.login}" required="true" label="Name"/>  
+                        <h:outputText value="Haslo"/>
+                        <p:password value="#{rejestruj.haslo}" />           
+                    </h:panelGrid>  
+                    <p:commandButton value="Zapisz" actionListener="#{rejestruj.rejestruj()}" update="growl"/>  
+                </p:panel>       
+            </h:form> 
+
         </f:view>
     </h:body>
 </html>
