@@ -44,28 +44,44 @@ public class Rejestruj {
         this.haslo = haslo;
     }
 
-    public void rejestruj() {
+    public Klient getKlientDoRejestracji() {
+        return klientDoRejestracji;
+    }
+
+    public void setKlientDoRejestracji(Klient klientDoRejestracji) {
+        this.klientDoRejestracji = klientDoRejestracji;
+    }
+
+    public String rejestruj() {
         EntityManager em = DBManager.getManager().createEntityManager();
         FacesContext context = FacesContext.getCurrentInstance();
-        klientDoRejestracji = new Klient();
+        setKlientDoRejestracji(new Klient());
 
         try {
-            klientDoRejestracji = (Klient) em.createNamedQuery("Klient.findByLogin").setParameter("login", login).getSingleResult();
-        } catch (Exception e) {
-
-            klientDoRejestracji.setIDKlient(null);
-            klientDoRejestracji.setLogin(login);
-            klientDoRejestracji.setHaslo(haslo);
-            klientDoRejestracji.setNazwisko("Prosze uzupełnić");
-            klientDoRejestracji.setAdres("Prosze uzupełnić");
-            klientDoRejestracji.setImie("Prosze uzupełnić");
+            setKlientDoRejestracji((Klient) em.createNamedQuery("Klient.findByLogin").setParameter("login", login).getSingleResult());
+        } catch (Exception e) {       
+            getKlientDoRejestracji().setIDKlient(null);
+            getKlientDoRejestracji().setLogin(login);
+            getKlientDoRejestracji().setHaslo(haslo);
+            getKlientDoRejestracji().setNazwisko("Prosze uzupełnić");
+            getKlientDoRejestracji().setAdres("Prosze uzupełnić");
+            getKlientDoRejestracji().setImie("Prosze uzupełnić");
             em.getTransaction().begin();
-            em.persist(klientDoRejestracji);
+            em.persist(getKlientDoRejestracji());
             em.getTransaction().commit();
-            em.close();
-            
+            em.close();           
             context.addMessage(null, new FacesMessage("Udało sie", "Zostałeś zarejestrowany do bazy " + this.getLogin()+" Po zalogowaniu prosimy o uzupełnieniu danych w panelu użytkownika"));
+            setKlientDoRejestracji(new Klient());
+            return "index.xhtml";
+            
         }
+            context.addMessage(null, new FacesMessage("Login " + this.getLogin()+" jest już zajęty"));
+            return "index.xhtml";
+               
+            
+            
+           
+        
  
     }
 

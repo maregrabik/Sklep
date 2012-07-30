@@ -45,9 +45,16 @@ public class AktualnyUzytkownik {
             context.addMessage(null, new FacesMessage("Wystąpił błąd podczas logowania,sprawdz hasło ponoweni"));
             return "index.xhtml";
         }
-
-
-
+    }
+    public void uaktualnij(){
+        
+      EntityManager em = DBManager.getManager().createEntityManager();
+        em.getTransaction().begin();
+        em.merge(this.klientAktualny);
+        em.getTransaction().commit();
+        em.close();
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Udało sie, Dane zostały zaktualizowane"));  
     }
 
     public String getLogin() {

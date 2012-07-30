@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -12,19 +13,61 @@
     </h:head>
     
     <h:body>
-        <div id="top">
-            <ui:insert name="top">Top</ui:insert>
-        </div>     
-        <div>
-            <div id="left">
-                <ui:insert name="left">Left</ui:insert>
-            </div>
-            <div id="content" class="left_content">
-                <ui:insert name="content">Content</ui:insert>
-            </div>
-        </div>       
-        <div id="bottom">
-            <ui:insert name="bottom">Bottom</ui:insert>
+      <div id="top">
+
+            <TABLE  BORDER="0" CELLPADDING="0" CELLSPACING="0" align="center">
+                <TR>
+                    <TD COLSPAN="{6}">
+                        <IMG SRC="./resources/images/index_01.jpg" WIDTH="1140" HEIGHT="83" ALT=""></IMG></TD>
+                </TR>
+                <TR>
+                    <TD COLSPAN="{6}"><IMG SRC="./resources/images/logo.jpg" WIDTH="1140"  HEIGHT="53"  ALT=""></IMG> </TD>
+                </TR>
+            </TABLE>
+        </div>
+
+        <div id="left">  
+            <h:form id="menu">
+                <p:menu>   
+                    <p:submenu label="Menu nawigacyjne">  
+                        <p:menuitem value="Start" url="start.xhtml" icon="ui-icon-home"/>   
+                        <p:menuitem value="Wyswietl książki" url="wyswietl.xhtml"/>
+<!--                        <p:menuitem value="Bestsellry" url="bestsellery.xhtml"/>
+                        <p:menuitem value="Znajdz pozycje" url="znajdz.xhtml"/>-->
+                    </p:submenu>  
+                </p:menu>
+                       
+                <p:panel header="Prywatne" id="pnl" style=" width:160px; height: 130px; border-style: solid;">  
+                    <h:outputText value="Witaj #{aktualnyUzytkownik.login}" /> <br/> <br/>
+                        <h:outputLink value="koszyk.xhtml">Koszyk</h:outputLink><br/>
+                        <h:outputLink value="profil.xhtml">Moj Profil</h:outputLink><br/>                 
+            </p:panel>  
+                    <p:draggable for="pnl"/> 
+              
+          
+            </h:form>
+        </div>
+        <div id="content" class="left_content">
+            <ui:insert name="content">Content</ui:insert>   
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>         
+        </div>      
+        <div id="bottom">         
+            <h:form id="stopa"> 
+                <p:panel style=" text-align: center" header="Wykonanie i zaprojektowanie przez Marek H. Wszelkie prawa do czegokolwiek związanego z tą stroną zastrzeżone,choć i tak pewnie nikt tego nie bedzie chciał tego używać">    
+                </p:panel>
+            </h:form>
         </div>
     </h:body>
 

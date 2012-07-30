@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./resources/Templates/newTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form>     
+
+            <p:panel >  
+
+                <h:panelGrid columns="2" columnClasses="column" cellpadding="5">                      
+                    <h:outputText value="Imie" />  
+                    <p:inplace id="imie" editor="true">  
+                        <p:inputText value="#{aktualnyUzytkownik.klientAktualny.imie}" required="true" label="text"/>                                    
+                    </p:inplace>
+                    <h:outputText value="Nazwisko" /> 
+                       <p:inplace id="Nazwisko" editor="true">  
+                        <p:inputText value="#{aktualnyUzytkownik.klientAktualny.nazwisko}"  required="true" label="text"/>                                    
+                    </p:inplace>
+                    <h:outputText value="Login" />  
+                    <p:inplace id="login" editor="true">  
+                        <p:inputText value="#{aktualnyUzytkownik.klientAktualny.login}" required="true" label="text"/>                     
+                    </p:inplace>  
+                    <h:outputText value="Adres" />  
+                    <p:inplace id="Adres" editor="true">  
+                        <p:inputText value="#{aktualnyUzytkownik.klientAktualny.adres}"   required="true" label="text"/>  
+                                    
+                    </p:inplace>              
+                    <p:commandButton  value="Zapisz" actionListener="#{aktualnyUzytkownik.uaktualnij()}"/>                              
+
+                </h:panelGrid>  
+            </p:panel>  
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
