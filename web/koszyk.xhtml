@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./resources/Templates/newTemplate.xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml" >
+
+
+
+    <ui:define name="content"> 
+
+
+  <h:form>
+            <table>
+                <tr><th>Usun</th><th>Nazwa</th><th>Opis</th><th>Cena</th></tr>
+                <ui:repeat value="#{ ksiazki.koszyk}" var="ksiazka">
+      
+                    <tr>                      
+                        <td>
+                        <h:commandLink value="Usun" action="#{ ksiazki.usunZKoszyk(ksiazka)}"/>                             
+                        </td>
+                        <td>#{ksiazka.nazwa}</td>
+                        <td>#{ksiazka.autor}</td>
+                        <td>#{ksiazka.cena}</td>                                                            
+                    </tr>
+                </ui:repeat>
+            </table>
+            
+        </h:form>
+        <p:commandButton action="#{ksiazki.realizujKoszyk()}" value="Realizuj"/>
+    </ui:define>
+
+
+
+
+</ui:composition>

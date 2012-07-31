@@ -23,6 +23,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Ksiazka.findByNazwa", query = "SELECT k FROM Ksiazka k WHERE k.nazwa = :nazwa"),
     @NamedQuery(name = "Ksiazka.findByCena", query = "SELECT k FROM Ksiazka k WHERE k.cena = :cena")})
 public class Ksiazka implements Serializable {
+    @Column(name = "Autor")
+    private String autor;
     @Column(name = "Opis")
     private String opis;
     private static final long serialVersionUID = 1L;
@@ -132,6 +134,14 @@ public class Ksiazka implements Serializable {
 
     public void setOpis(String opis) {
         this.opis = opis;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
     
 }

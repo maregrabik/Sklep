@@ -21,8 +21,8 @@
                         <h:outputText value="#{ksiazka.nazwa}" />  
                     </p:column>  
 
-                    <p:column headerText="Opis" style=" color: black">  
-                        <h:outputText value="#{ksiazka.opis}" />  
+                    <p:column headerText="Autor" style=" color: black">  
+                        <h:outputText value="#{ksiazka.autor}" />  
                     </p:column>  
 
                     <p:column headerText="Cena" style=" color: black">  
@@ -30,7 +30,7 @@
                     </p:column>                
 
                     <p:column headerText="Szczegóły" style="width:20px">                        
-                        <h:commandLink action="#{ksiazki_bean.ksiazkaUstawAktywneId(ksiazka)}" styleClass="ui-icon ui-icon-extlink"/>                                                                                                                           
+                        <h:commandLink action="#{ksiazki.ksiazkaUstawAktywneId(ksiazka)}" styleClass="ui-icon ui-icon-extlink"/>                                                                                                                           
                     </p:column>  
 
                 </p:dataTable>  
