@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./resources/Templates/newTemplate.xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                >
+
+    <ui:define name="content">         
+        <h:form id="formksiazki">  
+            
+            <p:fieldset legend="Książki w naszej bazie danych">
+                <p:dataTable id="availableCars" var="ksiazka" value="#{ksiazki.lista}">           
+                    <p:column headerText="Id ksiazki" style=" color: black; width: 20px">  
+                        <h:outputText value="#{ksiazka.IDKsiazka}" />  
+                    </p:column>  
+
+                    <p:column headerText="Nazwa" style=" color: black">  
+                        <h:outputText value="#{ksiazka.nazwa}" />  
+                    </p:column>  
+
+                    <p:column headerText="Opis" style=" color: black">  
+                        <h:outputText value="#{ksiazka.opis}" />  
+                    </p:column>  
+
+                    <p:column headerText="Cena" style=" color: black">  
+                        <h:outputText value="#{ksiazka.cena}" />  
+                    </p:column>                
+
+                    <p:column headerText="Szczegóły" style="width:20px">                        
+                        <h:commandLink action="#{ksiazki_bean.ksiazkaUstawAktywneId(ksiazka)}" styleClass="ui-icon ui-icon-extlink"/>                                                                                                                           
+                    </p:column>  
+
+                </p:dataTable>  
+            </p:fieldset> 
+
+        </h:form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </ui:define>
+
+</ui:composition>

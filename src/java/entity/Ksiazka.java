@@ -23,6 +23,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Ksiazka.findByNazwa", query = "SELECT k FROM Ksiazka k WHERE k.nazwa = :nazwa"),
     @NamedQuery(name = "Ksiazka.findByCena", query = "SELECT k FROM Ksiazka k WHERE k.cena = :cena")})
 public class Ksiazka implements Serializable {
+    @Column(name = "Opis")
+    private String opis;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -122,6 +124,14 @@ public class Ksiazka implements Serializable {
     @Override
     public String toString() {
         return "entity.Ksiazka[ iDKsiazka=" + iDKsiazka + " ]";
+    }
+
+    public String getOpis() {
+        return opis;
+    }
+
+    public void setOpis(String opis) {
+        this.opis = opis;
     }
     
 }
