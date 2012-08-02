@@ -15,13 +15,14 @@
 
   <h:form>
             <table>
-                <tr><th>Usun</th><th>Nazwa</th><th>Opis</th><th>Cena</th></tr>
+                <tr><th>Usun</th><th>ID uzywtkownika</th><th>Nazwa</th><th>Opis</th><th>Cena</th></tr>
                 <ui:repeat value="#{ ksiazki.koszyk}" var="ksiazka">
       
                     <tr>                      
                         <td>
                         <h:commandLink value="Usun" action="#{ ksiazki.usunZKoszyk(ksiazka)}"/>                             
                         </td>
+                        <td>#{ksiazki.uzytkownikAktualny.klientAktualny.IDKlient}</td>
                         <td>#{ksiazka.nazwa}</td>
                         <td>#{ksiazka.autor}</td>
                         <td>#{ksiazka.cena}</td>                                                            

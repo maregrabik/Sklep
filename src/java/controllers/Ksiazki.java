@@ -30,8 +30,8 @@ public class Ksiazki {
      */
     private Ksiazka aktywnaKsiazka;
     private ArrayList<Ksiazka> koszyk = new ArrayList<Ksiazka>();
-    //@ManagedProperty(value="#{aktualnyUzytkownik}")
-    //private AktualnyUzytkownik uzytkownikAktualny;
+    @ManagedProperty(value="#{aktualnyUzytkownik}")
+    private AktualnyUzytkownik uzytkownikAktualny;
 
     public Ksiazki() {
     }
@@ -80,14 +80,19 @@ public class Ksiazki {
     public String realizujKoszyk(){
         
      EntityManager em = DBManager.getManager().createEntityManager();
-     for(Ksiazka k:this.getKoszyk()){
-     em.getTransaction().begin();
      Zamowienia z = new Zamowienia();
+     for(Ksiazka k:this.getKoszyk()){
+         
+     em.getTransaction().begin();
+     
      z.setIDZamowienia(null);
-    // z.setKlientIDKlient(getUzytkownikAktualny().getKlientAktualny());
-     z.setKsiazkaIDKsiazka(k);
+     z.setKlientIDKlient(this.uzytkownikAktualny.getKlientAktualny());
+     z.setKsiazkaIDKsiazka(k);  
      z.setStan("Przyjęte do zamówienia");
      z.setData(new Date());
+     em.persist(z); 
+     em.getTransaction().commit();
+    
      
 //     z.setKlientIDKlient(klientAktualny.getIDKlient());
 //     z.setIDklient(klientAktualny.getIDKlient());
@@ -95,11 +100,18 @@ public class Ksiazki {
 //     z.setIDksiazka(k.getIDksiazka());
 //     z.setData(new Date());
 //     z.setStan("przyjeto zamowienie");
-     em.persist(z); 
-     em.getTransaction().commit();
+     
      } 
      this.koszyk=null;
      return("sukces.xhtml");
+    }
+
+    public AktualnyUzytkownik getUzytkownikAktualny() {
+        return uzytkownikAktualny;
+    }
+
+    public void setUzytkownikAktualny(AktualnyUzytkownik uzytkownikAktualny) {
+        this.uzytkownikAktualny = uzytkownikAktualny;
     }
 
   
