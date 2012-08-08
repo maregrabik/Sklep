@@ -5,6 +5,7 @@
 package controllers;
 
 import database.DBManager;
+import entity.Klient;
 import entity.Ksiazka;
 import entity.Zamowienia;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class Ksiazki {
      */
     private Ksiazka aktywnaKsiazka;
     private ArrayList<Ksiazka> koszyk = new ArrayList<Ksiazka>();
-    @ManagedProperty(value="#{aktualnyUzytkownik}")
+    @ManagedProperty(value = "#{aktualnyUzytkownik}")
     private AktualnyUzytkownik uzytkownikAktualny;
 
     public Ksiazki() {
@@ -53,8 +54,8 @@ public class Ksiazki {
         this.getKoszyk().add(getAktywnaKsiazka());
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Książka dodana do koszyka"));
-        
-        
+
+
     }
 
     public Ksiazka getAktywnaKsiazka() {
@@ -72,38 +73,34 @@ public class Ksiazki {
     public void setKoszyk(ArrayList<Ksiazka> koszyk) {
         this.koszyk = koszyk;
     }
+
     public String usunZKoszyk(Ksiazka ksiazka) {
 
         this.getKoszyk().remove(ksiazka);
         return ("koszyk.xhtml");
     }
-    public String realizujKoszyk(){
+
+    public String realizujKoszyk() {
+
+        EntityManager em = DBManager.getManager().createEntityManager();
         
-     EntityManager em = DBManager.getManager().createEntityManager();
-     Zamowienia z = new Zamowienia();
-     for(Ksiazka k:this.getKoszyk()){
-         
-     em.getTransaction().begin();
-     
-     z.setIDZamowienia(null);
-     z.setKlientIDKlient(this.uzytkownikAktualny.getKlientAktualny());
-     z.setKsiazkaIDKsiazka(k);  
-     z.setStan("Przyjęte do zamówienia");
-     z.setData(new Date());
-     em.persist(z); 
-     em.getTransaction().commit();
-    
-     
-//     z.setKlientIDKlient(klientAktualny.getIDKlient());
-//     z.setIDklient(klientAktualny.getIDKlient());
-//     z.setKsiazkaIDKsiazka(k.getIDKsiazka().toString());
-//     z.setIDksiazka(k.getIDksiazka());
-//     z.setData(new Date());
-//     z.setStan("przyjeto zamowienie");
-     
-     } 
-     this.koszyk=null;
-     return("sukces.xhtml");
+        for (Ksiazka k : this.getKoszyk()) {
+            Zamowienia z = new Zamowienia();
+            em.getTransaction().begin();
+
+            z.setIDZamowienia(null);
+            z.setKlientIDKlient(this.uzytkownikAktualny.getKlientAktualny());
+            z.setKsiazkaIDKsiazka(k);
+            z.setStan("Przyjęte do zamówienia");
+            z.setData(new Date());
+            em.persist(z);
+            em.getTransaction().commit();
+
+
+
+        }
+        setKoszyk(new  ArrayList<Ksiazka>());
+        return "sukces.xhtml";
     }
 
     public AktualnyUzytkownik getUzytkownikAktualny() {
@@ -113,6 +110,20 @@ public class Ksiazki {
     public void setUzytkownikAktualny(AktualnyUzytkownik uzytkownikAktualny) {
         this.uzytkownikAktualny = uzytkownikAktualny;
     }
-
-  
+    
+    public  List<Ksiazka>  zwrocKomentarze(){
+         EntityManager em = DBManager.getManager().createEntityManager();      
+         List list = em.createNamedQuery("Komentarz.znajdzPoIdKsiazki").setParameter("idKsiazki",aktywnaKsiazka).getResultList();      
+         if(list.size()>0){ return list;}    
+         else{return null;}
+         
+    }
+    public String zwrocUzytkownikaPoId(Integer id){
+     EntityManager em = DBManager.getManager().createEntityManager();     
+     Klient k = (Klient)  em.createNamedQuery("Klient.findByIDKlient").setParameter("iDKlient",id).getSingleResult();
+     if(!k.getImie().isEmpty()){return k.getImie();}   
+     else {return "nieznany użytkownik" ;} 
+     
+    }
+    
 }

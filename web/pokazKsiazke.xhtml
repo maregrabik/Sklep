@@ -6,7 +6,6 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:p="http://primefaces.org/ui">
-
     <ui:define name="content">
         <f:view>
             <h:form id="pokaz">             
@@ -19,6 +18,25 @@
                 </p:fieldset> 
                 <p:commandButton  value="Dodaj do koszyka"  actionListener="#{ksiazki.doKoszyka()}" update="growl" />
             </h:form>
+            <h:form>  
+                <br></br> 
+                <p:growl id="growl" showDetail="true" />  
+                <p:fieldset   legend="Komenatrze" toggleable="true"  toggleSpeed="500">  
+                    <p:ajax event="toggle"  listener="#{fieldsetBean.handleToggle}" update="growl" />  
+
+                    <ui:repeat value="#{ksiazki.zwrocKomentarze()}" var="komentarz">
+                     
+                        <p:panel header="#{ksiazki.zwrocUzytkownikaPoId(komentarz.klient.IDKlient)} ">  
+                            <h:outputText value="#{komentarz.tresc} " />                      
+                        </p:panel>    
+                        <br></br>
+                    </ui:repeat>
+
+
+
+                </p:fieldset>  
+
+            </h:form>  
         </f:view> 
     </ui:define>
 </ui:composition>

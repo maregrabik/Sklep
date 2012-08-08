@@ -16,7 +16,7 @@
   <h:form>
             <table>
                 <tr><th>Usun</th><th>ID uzywtkownika</th><th>Nazwa</th><th>Opis</th><th>Cena</th></tr>
-                <ui:repeat value="#{ ksiazki.koszyk}" var="ksiazka">
+                <ui:repeat value="#{ksiazki.koszyk}" var="ksiazka">
       
                     <tr>                      
                         <td>
@@ -31,7 +31,7 @@
             </table>
             
         </h:form>
-        <p:commandButton action="#{ksiazki.realizujKoszyk()}" value="Realizuj"/>
+        <p:commandButton action="#{ksiazki.realizujKoszyk}" value="Realizuj" />
     </ui:define>
 
 
