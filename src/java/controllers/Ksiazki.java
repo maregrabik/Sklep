@@ -6,6 +6,7 @@ package controllers;
 
 import database.DBManager;
 import entity.Klient;
+import entity.Komentarz;
 import entity.Ksiazka;
 import entity.Zamowienia;
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ public class Ksiazki {
     private ArrayList<Ksiazka> koszyk = new ArrayList<Ksiazka>();
     @ManagedProperty(value = "#{aktualnyUzytkownik}")
     private AktualnyUzytkownik uzytkownikAktualny;
+    private String trescKomentarza;
+    private Komentarz komentarz;
 
     public Ksiazki() {
     }
@@ -74,6 +77,14 @@ public class Ksiazki {
         this.koszyk = koszyk;
     }
 
+    public String getTrescKomentarza() {
+        return trescKomentarza;
+    }
+
+    public void setTrescKomentarza(String trescKomentarza) {
+        this.trescKomentarza = trescKomentarza;
+    }
+
     public String usunZKoszyk(Ksiazka ksiazka) {
 
         this.getKoszyk().remove(ksiazka);
@@ -83,7 +94,7 @@ public class Ksiazki {
     public String realizujKoszyk() {
 
         EntityManager em = DBManager.getManager().createEntityManager();
-        
+
         for (Ksiazka k : this.getKoszyk()) {
             Zamowienia z = new Zamowienia();
             em.getTransaction().begin();
@@ -99,7 +110,7 @@ public class Ksiazki {
 
 
         }
-        setKoszyk(new  ArrayList<Ksiazka>());
+        setKoszyk(new ArrayList<Ksiazka>());
         return "sukces.xhtml";
     }
 
@@ -110,20 +121,55 @@ public class Ksiazki {
     public void setUzytkownikAktualny(AktualnyUzytkownik uzytkownikAktualny) {
         this.uzytkownikAktualny = uzytkownikAktualny;
     }
-    
-    public  List<Ksiazka>  zwrocKomentarze(){
-         EntityManager em = DBManager.getManager().createEntityManager();      
-         List list = em.createNamedQuery("Komentarz.znajdzPoIdKsiazki").setParameter("idKsiazki",aktywnaKsiazka).getResultList();      
-         if(list.size()>0){ return list;}    
-         else{return null;}
-         
+
+    public List<Ksiazka> zwrocKomentarze() {
+        EntityManager em = DBManager.getManager().createEntityManager();
+        List list = em.createNamedQuery("Komentarz.znajdzPoIdKsiazki").setParameter("idKsiazki", aktywnaKsiazka).getResultList();
+        if (list.size() > 0) {
+            return list;
+        } else {
+            return null;
+        }
+
     }
-    public String zwrocUzytkownikaPoId(Integer id){
-     EntityManager em = DBManager.getManager().createEntityManager();     
-     Klient k = (Klient)  em.createNamedQuery("Klient.findByIDKlient").setParameter("iDKlient",id).getSingleResult();
-     if(!k.getImie().isEmpty()){return k.getImie();}   
-     else {return "nieznany użytkownik" ;} 
-     
+
+    public String zwrocUzytkownikaPoId(Integer id) {
+        EntityManager em = DBManager.getManager().createEntityManager();
+        Klient k = (Klient) em.createNamedQuery("Klient.findByIDKlient").setParameter("iDKlient", id).getSingleResult();
+        if (!k.getImie().isEmpty()) {
+            em.close();
+            return k.getImie();
+        } else {
+            em.close();
+            return "nieznany użytkownik";
+        }
+
+
     }
-    
+
+    public String dodajKomentarz() {
+
+        komentarz = new Komentarz();
+        EntityManager em = DBManager.getManager().createEntityManager();
+        getKomentarz().setIdKomentarz(null);
+        getKomentarz().setKlient(uzytkownikAktualny.getKlientAktualny());
+        getKomentarz().setKsiazka(aktywnaKsiazka);
+        getKomentarz().setTresc(trescKomentarza);
+        em.getTransaction().begin();
+        em.persist(getKomentarz());
+        em.getTransaction().commit();
+        em.close();
+
+
+        return "pokazKsiazke";
+
+    }
+
+    public Komentarz getKomentarz() {
+        return komentarz;
+    }
+
+    public void setKomentarz(Komentarz komentarz) {
+        this.komentarz = komentarz;
+    }
 }

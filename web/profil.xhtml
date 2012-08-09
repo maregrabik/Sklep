@@ -11,15 +11,16 @@
 
         <h:form>     
 
-            <p:panel >  
+            <p:panel>    
 
+                <p:growl id="growl" showDetail="true" sticky="true" /> 
                 <h:panelGrid columns="2" columnClasses="column" cellpadding="5">                      
                     <h:outputText value="Imie" />  
-                    <p:inplace id="imie" editor="true">  
+                    <p:inplace  id="imie" editor="true">  
                         <p:inputText value="#{aktualnyUzytkownik.klientAktualny.imie}" required="true" label="text"/>                                    
                     </p:inplace>
                     <h:outputText value="Nazwisko" /> 
-                       <p:inplace id="Nazwisko" editor="true">  
+                    <p:inplace id="Nazwisko" editor="true">  
                         <p:inputText value="#{aktualnyUzytkownik.klientAktualny.nazwisko}"  required="true" label="text"/>                                    
                     </p:inplace>
                     <h:outputText value="Login" />  
@@ -28,11 +29,9 @@
                     </p:inplace>  
                     <h:outputText value="Adres" />  
                     <p:inplace id="Adres" editor="true">  
-                        <p:inputText value="#{aktualnyUzytkownik.klientAktualny.adres}"   required="true" label="text"/>  
-                                    
+                        <p:inputText value="#{aktualnyUzytkownik.klientAktualny.adres}"   required="true" label="text"/>                                     
                     </p:inplace>              
-                    <p:commandButton  value="Zapisz" actionListener="#{aktualnyUzytkownik.uaktualnij()}"/>                              
-
+                    <p:commandButton  update="growl" value="Zapisz" actionListener="#{aktualnyUzytkownik.uaktualnij()}"/>                              
                 </h:panelGrid>  
             </p:panel>  
 

@@ -22,7 +22,7 @@ public class Rejestruj {
 
    
     public Rejestruj() {
-        EntityManager em = DBManager.getManager().createEntityManager();
+   
 
 
 
